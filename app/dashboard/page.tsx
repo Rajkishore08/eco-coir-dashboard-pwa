@@ -47,15 +47,15 @@ const efficiencyData = [
 
 export default function DashboardOverview() {
   return (
-    <div className="space-y-8 pb-8">
+    <div className="space-y-6 sm:space-y-8 pb-8">
       {/* Page Header */}
-      <div>
-        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-2">Factory Overview</h1>
-        <p className="text-lg text-muted-foreground">Real-time monitoring of coir processing operations</p>
+      <div className="animate-fade-in-up">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-1 sm:mb-2">Factory Overview</h1>
+        <p className="text-base sm:text-lg text-muted-foreground">Real-time monitoring of coir processing operations</p>
       </div>
 
       {/* KPI Cards Grid - Fully Responsive */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
         <KPICard
           title="Total Power Consumption"
           value={15240}
@@ -64,6 +64,7 @@ export default function DashboardOverview() {
           colorScheme="green"
           trend={{ value: 12, isPositive: true }}
           status="normal"
+          delay={0}
         />
         <KPICard
           title="System Efficiency Score"
@@ -73,6 +74,7 @@ export default function DashboardOverview() {
           colorScheme="lime"
           trend={{ value: 5, isPositive: true }}
           status="normal"
+          delay={1}
         />
         <KPICard
           title="Water Usage Today"
@@ -82,6 +84,7 @@ export default function DashboardOverview() {
           colorScheme="cyan"
           trend={{ value: 8, isPositive: false }}
           status="normal"
+          delay={2}
         />
         <KPICard
           title="Average Machine Load"
@@ -91,6 +94,7 @@ export default function DashboardOverview() {
           colorScheme="amber"
           trend={{ value: 3, isPositive: true }}
           status="normal"
+          delay={3}
         />
         <KPICard
           title="Solar Energy Output"
@@ -100,6 +104,7 @@ export default function DashboardOverview() {
           colorScheme="green"
           trend={{ value: 15, isPositive: true }}
           status="normal"
+          delay={4}
         />
         <KPICard
           title="Operational Status"
@@ -107,15 +112,16 @@ export default function DashboardOverview() {
           icon={Leaf}
           colorScheme="green"
           status="normal"
+          delay={5}
         />
       </div>
 
       {/* Charts Section - Full Responsive */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
         {/* Power Consumption Chart */}
-        <Card className="p-4 md:p-6 shadow-md hover:shadow-lg transition-shadow">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Power Consumption (kWh)</h2>
-          <ResponsiveContainer width="100%" height={280}>
+        <Card className="p-3 sm:p-4 md:p-6 shadow-md hover:shadow-lg transition-all duration-300 animate-fade-in-up" style={{ animationDelay: '600ms' }}>
+          <h2 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4">Power Consumption (kWh)</h2>
+          <ResponsiveContainer width="100%" height={200}>
             <LineChart data={powerConsumptionData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgb(229 231 235)" />
               <XAxis dataKey="time" stroke="rgb(107 114 128)" style={{ fontSize: '12px' }} />
@@ -135,9 +141,9 @@ export default function DashboardOverview() {
         </Card>
 
         {/* Machine Load Chart */}
-        <Card className="p-4 md:p-6 shadow-md hover:shadow-lg transition-shadow">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Machine Load Status (%)</h2>
-          <ResponsiveContainer width="100%" height={280}>
+        <Card className="p-3 sm:p-4 md:p-6 shadow-md hover:shadow-lg transition-all duration-300 animate-fade-in-up" style={{ animationDelay: '700ms' }}>
+          <h2 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4">Machine Load Status (%)</h2>
+          <ResponsiveContainer width="100%" height={200}>
             <BarChart data={machineLoadData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgb(229 231 235)" />
               <XAxis dataKey="time" stroke="rgb(107 114 128)" style={{ fontSize: '12px' }} />
@@ -150,9 +156,9 @@ export default function DashboardOverview() {
         </Card>
 
         {/* Water Usage Chart */}
-        <Card className="p-4 md:p-6 shadow-md hover:shadow-lg transition-shadow">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Weekly Water Usage (L)</h2>
-          <ResponsiveContainer width="100%" height={280}>
+        <Card className="p-3 sm:p-4 md:p-6 shadow-md hover:shadow-lg transition-all duration-300 animate-fade-in-up" style={{ animationDelay: '800ms' }}>
+          <h2 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4">Weekly Water Usage (L)</h2>
+          <ResponsiveContainer width="100%" height={200}>
             <BarChart data={waterUsageData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgb(229 231 235)" />
               <XAxis dataKey="time" stroke="rgb(107 114 128)" style={{ fontSize: '12px' }} />
@@ -165,9 +171,9 @@ export default function DashboardOverview() {
         </Card>
 
         {/* Efficiency Distribution */}
-        <Card className="p-4 md:p-6 shadow-md hover:shadow-lg transition-shadow">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Efficiency Distribution</h2>
-          <ResponsiveContainer width="100%" height={280}>
+        <Card className="p-3 sm:p-4 md:p-6 shadow-md hover:shadow-lg transition-all duration-300 animate-fade-in-up" style={{ animationDelay: '900ms' }}>
+          <h2 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4">Efficiency Distribution</h2>
+          <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <Pie
                 data={efficiencyData}
@@ -190,19 +196,19 @@ export default function DashboardOverview() {
       </div>
 
       {/* Real-time Gauges */}
-      <div>
-        <h2 className="text-lg font-semibold text-foreground mb-4">Real-time Status</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <GaugeWidget title="Machine Load" value={81.4} color="#ADD8E6" />
-          <GaugeWidget title="Power Usage" value={76} color="#90EE90" />
-          <GaugeWidget title="Water Flow" value={64} color="#2E8B57" />
-          <GaugeWidget title="System Temp" value={45} maxValue={100} color="#FB923C" />
+      <div className="animate-fade-in-up" style={{ animationDelay: '1000ms' }}>
+        <h2 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4">Real-time Status</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+          <GaugeWidget title="Machine Load" value={81.4} colorScheme="green" delay={0} />
+          <GaugeWidget title="Power Usage" value={76} colorScheme="cyan" delay={1} />
+          <GaugeWidget title="Water Flow" value={64} colorScheme="lime" delay={2} />
+          <GaugeWidget title="System Temp" value={45} maxValue={100} colorScheme="amber" delay={3} />
         </div>
       </div>
 
       {/* Detailed Metrics */}
-      <Card className="p-6">
-        <h2 className="text-lg font-semibold text-foreground mb-4">Daily Analytics</h2>
+      <Card className="p-3 sm:p-4 md:p-6 animate-fade-in-up" style={{ animationDelay: '1100ms' }}>
+        <h2 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4">Daily Analytics</h2>
         <Tabs defaultValue="overview" className="w-full">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>

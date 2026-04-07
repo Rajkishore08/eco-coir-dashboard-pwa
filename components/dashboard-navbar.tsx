@@ -10,34 +10,34 @@ interface DashboardNavbarProps {
 
 export function DashboardNavbar({ userRole = 'operator', onLogout }: DashboardNavbarProps) {
   return (
-    <nav className="bg-white border-b-2 border-green-100 sticky top-0 z-50 shadow-sm">
-      <div className="flex items-center justify-between h-16 px-4 md:px-6">
+    <nav className="bg-white border-b-2 border-green-100 sticky top-0 z-50 shadow-sm animate-slide-in-down">
+      <div className="flex items-center justify-between h-14 sm:h-16 px-3 sm:px-4 md:px-6">
         {/* Mobile Menu */}
         <MobileNav userRole={userRole} />
 
         {/* Logo/Title */}
-        <div className="flex items-center gap-3 flex-1 md:flex-none">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-md hover:shadow-lg transition-shadow">
-            <span className="text-white font-bold text-lg">EC</span>
+        <div className="flex items-center gap-2 sm:gap-3 flex-1 md:flex-none">
+          <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-md hover:shadow-lg transition-shadow flex-shrink-0">
+            <span className="text-white font-bold text-sm sm:text-lg">EC</span>
           </div>
-          <div>
-            <h1 className="text-lg font-bold text-green-700">EcoCoir</h1>
-            <p className="text-xs text-green-600 font-medium">Smart Factory</p>
+          <div className="min-w-0">
+            <h1 className="text-sm sm:text-lg font-bold text-green-700 truncate">EcoCoir</h1>
+            <p className="text-xs text-green-600 font-medium hidden sm:block">Smart Factory</p>
           </div>
         </div>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-2 md:gap-4">
+        <div className="flex items-center gap-1 sm:gap-2 md:gap-4">
           {/* Alerts Bell */}
-          <Button variant="ghost" size="icon" className="relative text-gray-600 hover:text-green-600 hover:bg-green-50">
+          <Button variant="ghost" size="icon" className="relative text-gray-600 hover:text-green-600 hover:bg-green-50 touch-target transition-all">
             <Bell className="h-5 w-5" />
-            <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+            <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse animate-glow"></span>
           </Button>
 
           {/* User Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-gray-600 hover:text-green-600 hover:bg-green-50">
+              <Button variant="ghost" size="icon" className="text-gray-600 hover:text-green-600 hover:bg-green-50 touch-target transition-all">
                 <User className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>

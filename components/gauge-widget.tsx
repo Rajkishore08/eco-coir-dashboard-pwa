@@ -1,5 +1,6 @@
 import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
+import { memo } from 'react'
 
 interface GaugeWidgetProps {
   title: string
@@ -8,15 +9,17 @@ interface GaugeWidgetProps {
   unit?: string
   color?: string
   colorScheme?: 'green' | 'cyan' | 'lime' | 'amber'
+  delay?: number
 }
 
-export function GaugeWidget({
+function GaugeWidgetComponent({
   title,
   value,
   maxValue = 100,
   unit = '%',
   color,
   colorScheme = 'green',
+  delay = 0,
 }: GaugeWidgetProps) {
   const percentage = (value / maxValue) * 100
   const circumference = 2 * Math.PI * 45
@@ -35,13 +38,21 @@ export function GaugeWidget({
   const statusColor = percentage < 50 ? '#EF4444' : percentage < 80 ? '#22C55E' : '#F59E0B'
 
   return (
-    <Card className={cn('p-6 shadow-md hover:shadow-lg transition-shadow', scheme.bg, 'border-l-4', scheme.text.replace('text-', 'border-'))}>
-      <p className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wide">{title}</p>
+    <Card 
+      className={cn(
+        'p-3 sm:p-4 md:p-5 lg:p-6 shadow-md hover:shadow-lg transition-all duration-300 animate-fade-in-up',
+        scheme.bg,
+        'border-l-4',
+        scheme.text.replace('text-', 'border-')
+      )}
+      style={{ animationDelay: `${delay * 100}ms` }}
+    >
+      <p className="text-xs sm:text-sm font-semibold text-foreground mb-3 sm:mb-4 uppercase tracking-wide">{title}</p>
       
-      <div className="flex items-center justify-center mb-6">
-        <div className="relative w-44 h-44">
+      <div className="flex items-center justify-center mb-4 sm:mb-6">
+        <div className="relative w-32 sm:w-40 md:w-44 h-32 sm:h-40 md:h-44">
           {/* SVG Circular Gauge */}
-          <svg width="176" height="176" viewBox="0 0 176 176" className="rotate-[-90deg] drop-shadow-sm">
+          <svg width="100%" height="100%" viewBox="0 0 176 176" className="rotate-[-90deg] drop-shadow-sm animate-fade-in-up">
             {/* Background Circle */}
             <circle
               cx="88"
@@ -71,15 +82,15 @@ export function GaugeWidget({
           {/* Center Value */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <div className={cn('text-4xl font-bold', scheme.text)}>{Math.round(value)}</div>
-              <div className="text-sm text-muted-foreground font-medium">{unit}</div>
+              <div className={cn('text-2xl sm:text-3xl md:text-4xl font-bold', scheme.text)}>{Math.round(value)}</div>
+              <div className="text-xs sm:text-sm text-muted-foreground font-medium">{unit}</div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Status Text */}
-      <div className="text-center">
+      <div className="text-center mt-2 sm:mt-4">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/50 border border-border">
           <div
             className="w-2 h-2 rounded-full"
@@ -93,3 +104,5 @@ export function GaugeWidget({
     </Card>
   )
 }
+
+export const GaugeWidget = memo(GaugeWidgetComponent)

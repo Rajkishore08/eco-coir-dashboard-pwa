@@ -37,15 +37,15 @@ const hourlyFlowData = [
 
 export default function WaterUsagePage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 sm:space-y-8 pb-8">
       {/* Page Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-foreground mb-2">Water Management</h1>
-        <p className="text-muted-foreground">Monitor water consumption and optimize efficiency</p>
+      <div className="animate-fade-in-up">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1 sm:mb-2">Water Management</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">Monitor water consumption and optimize efficiency</p>
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
         <KPICard
           title="Today's Water Usage"
           value={28500}

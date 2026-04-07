@@ -72,18 +72,18 @@ const mockAlerts: Alert[] = [
 
 function AlertIcon({ severity }: { severity: string }) {
   const icons = {
-    critical: <AlertTriangle className="h-5 w-5 text-destructive" />,
-    warning: <AlertCircle className="h-5 w-5 text-yellow-500" />,
-    info: <CheckCircle className="h-5 w-5 text-primary" />,
+    critical: <AlertTriangle className="h-6 w-6 sm:h-5 sm:w-5 text-red-600 flex-shrink-0" />,
+    warning: <AlertCircle className="h-6 w-6 sm:h-5 sm:w-5 text-amber-600 flex-shrink-0" />,
+    info: <CheckCircle className="h-6 w-6 sm:h-5 sm:w-5 text-green-600 flex-shrink-0" />,
   }
   return icons[severity as keyof typeof icons] || icons.warning
 }
 
 function SeverityBadge({ severity }: { severity: string }) {
   const badges = {
-    critical: <Badge variant="destructive" className="capitalize">{severity}</Badge>,
-    warning: <Badge className="bg-yellow-500/20 text-yellow-600 capitalize">{severity}</Badge>,
-    info: <Badge variant="secondary" className="capitalize">{severity}</Badge>,
+    critical: <Badge className="bg-red-100 text-red-700 capitalize text-xs">Critical</Badge>,
+    warning: <Badge className="bg-amber-100 text-amber-700 capitalize text-xs">Warning</Badge>,
+    info: <Badge className="bg-green-100 text-green-700 capitalize text-xs">Info</Badge>,
   }
   return badges[severity as keyof typeof badges]
 }
@@ -94,16 +94,16 @@ export default function AlertsPage() {
   const criticalAlerts = mockAlerts.filter(a => a.severity === 'critical' && a.status === 'active')
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 sm:space-y-8 pb-8">
       {/* Page Header */}
-      <div>
-        <h1 className="text-4xl font-bold text-foreground mb-2">System Alerts</h1>
-        <p className="text-lg text-muted-foreground">Monitor and manage all system alerts and notifications</p>
+      <div className="animate-fade-in-up">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1 sm:mb-2">System Alerts</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">Monitor and manage all system alerts and notifications</p>
       </div>
 
       {/* Alert Summary Cards - Colorful */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="p-6 bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 shadow-md hover:shadow-lg transition-shadow">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+        <Card className="p-4 sm:p-5 md:p-6 bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 shadow-md hover:shadow-lg transition-all duration-300 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-semibold text-amber-700 mb-1 uppercase">Active Alerts</p>
@@ -113,23 +113,23 @@ export default function AlertsPage() {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-red-50 to-pink-50 border-l-4 border-red-400 shadow-md hover:shadow-lg transition-shadow">
+        <Card className="p-4 sm:p-5 md:p-6 bg-gradient-to-br from-red-50 to-pink-50 border-l-4 border-red-400 shadow-md hover:shadow-lg transition-all duration-300 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-semibold text-red-700 mb-1 uppercase">Critical Issues</p>
-              <p className="text-4xl font-bold text-red-600">{criticalAlerts.length}</p>
+              <p className="text-xs sm:text-sm font-semibold text-red-700 mb-1 uppercase">Critical Issues</p>
+              <p className="text-3xl sm:text-4xl font-bold text-red-600">{criticalAlerts.length}</p>
             </div>
-            <XCircle className="h-10 w-10 text-red-400 opacity-30" />
+            <XCircle className="h-8 sm:h-10 w-8 sm:w-10 text-red-400 opacity-30 flex-shrink-0" />
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 border-l-4 border-green-400 shadow-md hover:shadow-lg transition-shadow">
+        <Card className="p-4 sm:p-5 md:p-6 bg-gradient-to-br from-green-50 to-emerald-50 border-l-4 border-green-400 shadow-md hover:shadow-lg transition-all duration-300 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-semibold text-green-700 mb-1 uppercase">Resolved</p>
-              <p className="text-4xl font-bold text-green-600">{resolvedAlerts.length}</p>
+              <p className="text-xs sm:text-sm font-semibold text-green-700 mb-1 uppercase">Resolved</p>
+              <p className="text-3xl sm:text-4xl font-bold text-green-600">{resolvedAlerts.length}</p>
             </div>
-            <CheckCircle className="h-10 w-10 text-green-400 opacity-30" />
+            <CheckCircle className="h-8 sm:h-10 w-8 sm:w-10 text-green-400 opacity-30 flex-shrink-0" />
           </div>
         </Card>
       </div>

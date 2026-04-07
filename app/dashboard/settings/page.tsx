@@ -1,6 +1,6 @@
 'use client'
 
-import { Settings, Bell, Lock, User, Database, AlertCircle } from 'lucide-react'
+import { Settings, Bell, Lock, User, Database, AlertCircle, CheckCircle } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -18,35 +18,35 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 sm:space-y-8 pb-8">
       {/* Page Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-foreground mb-2">System Settings</h1>
-        <p className="text-muted-foreground">Manage factory dashboard configuration and preferences</p>
+      <div className="animate-fade-in-up">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1 sm:mb-2">System Settings</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">Manage factory dashboard configuration and preferences</p>
       </div>
 
       {/* Success Message */}
       {isSaved && (
-        <div className="p-4 bg-primary/10 border border-primary/20 rounded-lg flex gap-3">
-          <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-          <p className="text-sm text-primary">Settings saved successfully</p>
+        <div className="p-3 sm:p-4 bg-green-50 border-l-4 border-green-500 rounded-lg flex gap-3 animate-bounce-in">
+          <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-green-700 font-medium">Settings saved successfully</p>
         </div>
       )}
 
       {/* Settings Tabs */}
-      <Card className="p-6">
+      <Card className="p-3 sm:p-4 md:p-6 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="general">General</TabsTrigger>
-            <TabsTrigger value="notifications">Alerts</TabsTrigger>
-            <TabsTrigger value="security">Security</TabsTrigger>
-            <TabsTrigger value="data">Data</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 mb-4 sm:mb-6">
+            <TabsTrigger value="general" className="text-xs sm:text-sm">General</TabsTrigger>
+            <TabsTrigger value="notifications" className="text-xs sm:text-sm">Alerts</TabsTrigger>
+            <TabsTrigger value="security" className="text-xs sm:text-sm">Security</TabsTrigger>
+            <TabsTrigger value="data" className="text-xs sm:text-sm">Data</TabsTrigger>
           </TabsList>
 
           {/* General Settings */}
-          <TabsContent value="general" className="mt-6 space-y-6">
+          <TabsContent value="general" className="mt-4 sm:mt-6 space-y-4 sm:space-y-6">
             <div>
-              <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+              <h3 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4 flex items-center gap-2">
                 <Settings className="h-5 w-5" />
                 General Configuration
               </h3>

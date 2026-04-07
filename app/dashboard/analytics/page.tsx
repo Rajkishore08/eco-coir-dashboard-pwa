@@ -36,16 +36,16 @@ const waterEfficiencyData = [
 
 export default function AnalyticsPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 sm:space-y-8 pb-8">
       {/* Page Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground mb-2">Analytics & Insights</h1>
-          <p className="text-muted-foreground">Comprehensive analysis of factory operations</p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 animate-fade-in-up">
+        <div className="min-w-0">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1 sm:mb-2">Analytics & Insights</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">Comprehensive analysis of factory operations</p>
         </div>
-        <Button variant="outline" className="gap-2">
-          <Download className="h-4 w-4" />
-          Export Report
+        <Button variant="outline" className="gap-2 w-full sm:w-auto touch-target">
+          <Download className="h-4 w-4 flex-shrink-0" />
+          <span className="truncate">Export Report</span>
         </Button>
       </div>
 
