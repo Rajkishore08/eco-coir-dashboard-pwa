@@ -97,39 +97,39 @@ export default function AlertsPage() {
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-3xl font-bold text-foreground mb-2">System Alerts</h1>
-        <p className="text-muted-foreground">Monitor and manage all system alerts and notifications</p>
+        <h1 className="text-4xl font-bold text-foreground mb-2">System Alerts</h1>
+        <p className="text-lg text-muted-foreground">Monitor and manage all system alerts and notifications</p>
       </div>
 
-      {/* Alert Summary Cards */}
+      {/* Alert Summary Cards - Colorful */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="p-4">
+        <Card className="p-6 bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 shadow-md hover:shadow-lg transition-shadow">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground mb-1">Active Alerts</p>
-              <p className="text-3xl font-bold text-foreground">{activeAlerts.length}</p>
+              <p className="text-sm font-semibold text-amber-700 mb-1 uppercase">Active Alerts</p>
+              <p className="text-4xl font-bold text-amber-600">{activeAlerts.length}</p>
             </div>
-            <AlertTriangle className="h-8 w-8 text-yellow-500 opacity-20" />
+            <AlertTriangle className="h-10 w-10 text-amber-400 opacity-30" />
           </div>
         </Card>
 
-        <Card className="p-4">
+        <Card className="p-6 bg-gradient-to-br from-red-50 to-pink-50 border-l-4 border-red-400 shadow-md hover:shadow-lg transition-shadow">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground mb-1">Critical Issues</p>
-              <p className="text-3xl font-bold text-destructive">{criticalAlerts.length}</p>
+              <p className="text-sm font-semibold text-red-700 mb-1 uppercase">Critical Issues</p>
+              <p className="text-4xl font-bold text-red-600">{criticalAlerts.length}</p>
             </div>
-            <XCircle className="h-8 w-8 text-destructive opacity-20" />
+            <XCircle className="h-10 w-10 text-red-400 opacity-30" />
           </div>
         </Card>
 
-        <Card className="p-4">
+        <Card className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 border-l-4 border-green-400 shadow-md hover:shadow-lg transition-shadow">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground mb-1">Resolved</p>
-              <p className="text-3xl font-bold text-primary">{resolvedAlerts.length}</p>
+              <p className="text-sm font-semibold text-green-700 mb-1 uppercase">Resolved</p>
+              <p className="text-4xl font-bold text-green-600">{resolvedAlerts.length}</p>
             </div>
-            <CheckCircle className="h-8 w-8 text-primary opacity-20" />
+            <CheckCircle className="h-10 w-10 text-green-400 opacity-30" />
           </div>
         </Card>
       </div>
@@ -156,33 +156,37 @@ export default function AlertsPage() {
                 <p>No active alerts</p>
               </div>
             ) : (
-              activeAlerts.map((alert) => (
-                <div
-                  key={alert.id}
-                  className="p-4 border border-border rounded-lg hover:bg-card/50 transition-colors"
-                >
-                  <div className="flex items-start gap-4">
-                    <AlertIcon severity={alert.severity} />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-4 mb-2">
-                        <div>
-                          <h3 className="font-semibold text-foreground">{alert.title}</h3>
-                          <p className="text-sm text-muted-foreground mt-1">{alert.description}</p>
+              activeAlerts.map((alert) => {
+                const bgColor = alert.severity === 'critical' ? 'bg-red-50 border-l-4 border-red-400' : alert.severity === 'warning' ? 'bg-amber-50 border-l-4 border-amber-400' : 'bg-cyan-50 border-l-4 border-cyan-400'
+                
+                return (
+                  <div
+                    key={alert.id}
+                    className={`p-5 border rounded-lg hover:shadow-md transition-all ${bgColor}`}
+                  >
+                    <div className="flex items-start gap-4">
+                      <AlertIcon severity={alert.severity} />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-4 mb-2">
+                          <div>
+                            <h3 className="font-semibold text-gray-800">{alert.title}</h3>
+                            <p className="text-sm text-gray-600 mt-1">{alert.description}</p>
+                          </div>
+                          <SeverityBadge severity={alert.severity} />
                         </div>
-                        <SeverityBadge severity={alert.severity} />
-                      </div>
-                      <div className="flex items-center justify-between text-xs text-muted-foreground">
-                        <span>{alert.timestamp}</span>
-                        {alert.actionRequired && (
-                          <Button size="sm" variant="outline" className="h-7">
-                            Take Action
-                          </Button>
-                        )}
+                        <div className="flex items-center justify-between text-xs text-gray-600">
+                          <span className="font-medium">{alert.timestamp}</span>
+                          {alert.actionRequired && (
+                            <Button size="sm" className={`h-7 font-semibold ${alert.severity === 'critical' ? 'bg-red-500 hover:bg-red-600 text-white' : alert.severity === 'warning' ? 'bg-amber-500 hover:bg-amber-600 text-white' : 'bg-cyan-500 hover:bg-cyan-600 text-white'}`}>
+                              Take Action
+                            </Button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))
+                )
+              })
             )}
           </TabsContent>
 

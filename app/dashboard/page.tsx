@@ -39,28 +39,29 @@ const waterUsageData = [
 ]
 
 const efficiencyData = [
-  { name: 'Efficient', value: 65, fill: '#90EE90' },
-  { name: 'Overload', value: 20, fill: '#FB923C' },
-  { name: 'Underutilized', value: 10, fill: '#60A5FA' },
-  { name: 'Missing Data', value: 5, fill: '#94A3B8' },
+  { name: 'Efficient', value: 65, fill: '#22C55E' },
+  { name: 'Overload', value: 20, fill: '#F59E0B' },
+  { name: 'Underutilized', value: 10, fill: '#06B6D4' },
+  { name: 'Missing Data', value: 5, fill: '#D1D5DB' },
 ]
 
 export default function DashboardOverview() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 pb-8">
       {/* Page Header */}
       <div>
-        <h1 className="text-3xl font-bold text-foreground mb-2">Factory Overview</h1>
-        <p className="text-muted-foreground">Real-time monitoring of coir processing operations</p>
+        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-2">Factory Overview</h1>
+        <p className="text-lg text-muted-foreground">Real-time monitoring of coir processing operations</p>
       </div>
 
-      {/* KPI Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* KPI Cards Grid - Fully Responsive */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 md:gap-6">
         <KPICard
           title="Total Power Consumption"
           value={15240}
           unit="kWh"
           icon={Zap}
+          colorScheme="green"
           trend={{ value: 12, isPositive: true }}
           status="normal"
         />
@@ -69,6 +70,7 @@ export default function DashboardOverview() {
           value={87.5}
           unit="%"
           icon={Activity}
+          colorScheme="lime"
           trend={{ value: 5, isPositive: true }}
           status="normal"
         />
@@ -77,6 +79,7 @@ export default function DashboardOverview() {
           value={28500}
           unit="L"
           icon={Droplets}
+          colorScheme="cyan"
           trend={{ value: 8, isPositive: false }}
           status="normal"
         />
@@ -85,6 +88,7 @@ export default function DashboardOverview() {
           value={81.4}
           unit="%"
           icon={Gauge}
+          colorScheme="amber"
           trend={{ value: 3, isPositive: true }}
           status="normal"
         />
@@ -93,6 +97,7 @@ export default function DashboardOverview() {
           value={8.2}
           unit="kWh"
           icon={Cloud}
+          colorScheme="green"
           trend={{ value: 15, isPositive: true }}
           status="normal"
         />
@@ -100,64 +105,69 @@ export default function DashboardOverview() {
           title="Operational Status"
           value="Active"
           icon={Leaf}
+          colorScheme="green"
           status="normal"
         />
       </div>
 
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Charts Section - Full Responsive */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         {/* Power Consumption Chart */}
-        <Card className="p-6">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Power Consumption</h2>
-          <ResponsiveContainer width="100%" height={300}>
+        <Card className="p-4 md:p-6 shadow-md hover:shadow-lg transition-shadow">
+          <h2 className="text-lg font-semibold text-foreground mb-4">Power Consumption (kWh)</h2>
+          <ResponsiveContainer width="100%" height={280}>
             <LineChart data={powerConsumptionData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgb(51 65 85)" />
-              <XAxis dataKey="time" stroke="rgb(148 163 184)" />
-              <YAxis stroke="rgb(148 163 184)" />
-              <Tooltip contentStyle={{ backgroundColor: 'rgb(30 41 59)', border: '1px solid rgb(51 65 85)' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgb(229 231 235)" />
+              <XAxis dataKey="time" stroke="rgb(107 114 128)" style={{ fontSize: '12px' }} />
+              <YAxis stroke="rgb(107 114 128)" style={{ fontSize: '12px' }} />
+              <Tooltip contentStyle={{ backgroundColor: 'rgb(255 255 255)', border: '2px solid rgb(34 197 94)', borderRadius: '8px' }} />
+              <Legend />
               <Line
                 type="monotone"
                 dataKey="consumption"
-                stroke="#90EE90"
-                strokeWidth={2}
+                stroke="#22C55E"
+                strokeWidth={3}
                 dot={false}
+                name="Power (kWh)"
               />
             </LineChart>
           </ResponsiveContainer>
         </Card>
 
         {/* Machine Load Chart */}
-        <Card className="p-6">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Machine Load Status</h2>
-          <ResponsiveContainer width="100%" height={300}>
+        <Card className="p-4 md:p-6 shadow-md hover:shadow-lg transition-shadow">
+          <h2 className="text-lg font-semibold text-foreground mb-4">Machine Load Status (%)</h2>
+          <ResponsiveContainer width="100%" height={280}>
             <BarChart data={machineLoadData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgb(51 65 85)" />
-              <XAxis dataKey="time" stroke="rgb(148 163 184)" />
-              <YAxis stroke="rgb(148 163 184)" />
-              <Tooltip contentStyle={{ backgroundColor: 'rgb(30 41 59)', border: '1px solid rgb(51 65 85)' }} />
-              <Bar dataKey="load" fill="#ADD8E6" radius={[8, 8, 0, 0]} />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgb(229 231 235)" />
+              <XAxis dataKey="time" stroke="rgb(107 114 128)" style={{ fontSize: '12px' }} />
+              <YAxis stroke="rgb(107 114 128)" style={{ fontSize: '12px' }} />
+              <Tooltip contentStyle={{ backgroundColor: 'rgb(255 255 255)', border: '2px solid rgb(6 182 212)', borderRadius: '8px' }} />
+              <Legend />
+              <Bar dataKey="load" fill="#06B6D4" radius={[12, 12, 0, 0]} name="Load %" />
             </BarChart>
           </ResponsiveContainer>
         </Card>
 
         {/* Water Usage Chart */}
-        <Card className="p-6">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Weekly Water Usage</h2>
-          <ResponsiveContainer width="100%" height={300}>
+        <Card className="p-4 md:p-6 shadow-md hover:shadow-lg transition-shadow">
+          <h2 className="text-lg font-semibold text-foreground mb-4">Weekly Water Usage (L)</h2>
+          <ResponsiveContainer width="100%" height={280}>
             <BarChart data={waterUsageData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgb(51 65 85)" />
-              <XAxis dataKey="time" stroke="rgb(148 163 184)" />
-              <YAxis stroke="rgb(148 163 184)" />
-              <Tooltip contentStyle={{ backgroundColor: 'rgb(30 41 59)', border: '1px solid rgb(51 65 85)' }} />
-              <Bar dataKey="usage" fill="#2E8B57" radius={[8, 8, 0, 0]} />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgb(229 231 235)" />
+              <XAxis dataKey="time" stroke="rgb(107 114 128)" style={{ fontSize: '12px' }} />
+              <YAxis stroke="rgb(107 114 128)" style={{ fontSize: '12px' }} />
+              <Tooltip contentStyle={{ backgroundColor: 'rgb(255 255 255)', border: '2px solid rgb(132 204 22)', borderRadius: '8px' }} />
+              <Legend />
+              <Bar dataKey="usage" fill="#84CC16" radius={[12, 12, 0, 0]} name="Usage (L)" />
             </BarChart>
           </ResponsiveContainer>
         </Card>
 
         {/* Efficiency Distribution */}
-        <Card className="p-6">
+        <Card className="p-4 md:p-6 shadow-md hover:shadow-lg transition-shadow">
           <h2 className="text-lg font-semibold text-foreground mb-4">Efficiency Distribution</h2>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={280}>
             <PieChart>
               <Pie
                 data={efficiencyData}

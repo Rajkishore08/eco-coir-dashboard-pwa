@@ -4,39 +4,39 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: 15 23 42; /* #0F172A - Dark slate background */
-  --foreground: 226 232 240; /* #E2E8F0 - Light slate text */
-  --card: 30 41 59; /* #1E293B - Dark card background */
-  --card-foreground: 226 232 240; /* #E2E8F0 - Light text on card */
-  --popover: 30 41 59; /* #1E293B */
-  --popover-foreground: 226 232 240; /* #E2E8F0 */
-  --primary: 144 238 144; /* #90EE90 - Light green (eco efficiency) */
-  --primary-foreground: 15 23 42; /* #0F172A - Dark text on green */
-  --secondary: 173 216 230; /* #ADD8E6 - Light blue (water) */
-  --secondary-foreground: 15 23 42; /* #0F172A - Dark text on blue */
-  --muted: 71 85 105; /* #475569 - Muted gray */
-  --muted-foreground: 226 232 240; /* #E2E8F0 */
-  --accent: 46 139 87; /* #2E8B57 - Dark green accent */
-  --accent-foreground: 226 232 240; /* #E2E8F0 */
+  --background: 245 250 245; /* #F5FAF5 - Light eco background */
+  --foreground: 22 43 32; /* #162B20 - Dark eco text */
+  --card: 255 255 255; /* #FFFFFF - White cards */
+  --card-foreground: 22 43 32; /* #162B20 - Dark text on card */
+  --popover: 255 255 255; /* #FFFFFF */
+  --popover-foreground: 22 43 32; /* #162B20 */
+  --primary: 34 197 94; /* #22C55E - Vibrant green (eco primary) */
+  --primary-foreground: 255 255 255; /* #FFFFFF - White text on green */
+  --secondary: 6 182 212; /* #06B6D4 - Cyan for water/flow */
+  --secondary-foreground: 255 255 255; /* #FFFFFF - White text on cyan */
+  --muted: 156 163 175; /* #9CA3AF - Soft gray */
+  --muted-foreground: 107 114 128; /* #6B7280 - Dark gray */
+  --accent: 16 185 129; /* #10B981 - Emerald accent */
+  --accent-foreground: 255 255 255; /* #FFFFFF */
   --destructive: 239 68 68; /* #EF4444 - Red for alerts */
-  --destructive-foreground: 226 232 240; /* #E2E8F0 */
-  --border: 51 65 85; /* #334155 - Dark border */
-  --input: 30 41 59; /* #1E293B - Dark input */
-  --ring: 144 238 144; /* #90EE90 - Green ring */
-  --chart-1: 144 238 144; /* #90EE90 - Green */
-  --chart-2: 173 216 230; /* #ADD8E6 - Blue */
-  --chart-3: 46 139 87; /* #2E8B57 - Dark green */
-  --chart-4: 251 146 60; /* #FB923C - Orange for warning */
-  --chart-5: 239 68 68; /* #EF4444 - Red for critical */
+  --destructive-foreground: 255 255 255; /* #FFFFFF */
+  --border: 229 231 235; /* #E5E7EB - Light border */
+  --input: 249 250 251; /* #F9FAFB - Light input */
+  --ring: 34 197 94; /* #22C55E - Green ring */
+  --chart-1: 34 197 94; /* #22C55E - Vibrant green */
+  --chart-2: 6 182 212; /* #06B6D4 - Cyan */
+  --chart-3: 132 204 22; /* #84CC16 - Lime (eco bright) */
+  --chart-4: 245 158 11; /* #F59E0B - Amber warning */
+  --chart-5: 239 68 68; /* #EF4444 - Red critical */
   --radius: 0.625rem;
-  --sidebar: 30 41 59; /* #1E293B - Dark card background */
-  --sidebar-foreground: 226 232 240; /* #E2E8F0 */
-  --sidebar-primary: 144 238 144; /* #90EE90 - Light green */
-  --sidebar-primary-foreground: 15 23 42; /* #0F172A */
-  --sidebar-accent: 46 139 87; /* #2E8B57 - Dark green */
-  --sidebar-accent-foreground: 226 232 240; /* #E2E8F0 */
-  --sidebar-border: 51 65 85; /* #334155 */
-  --sidebar-ring: 144 238 144; /* #90EE90 */
+  --sidebar: 255 255 255; /* #FFFFFF - White sidebar */
+  --sidebar-foreground: 22 43 32; /* #162B20 */
+  --sidebar-primary: 34 197 94; /* #22C55E - Vibrant green */
+  --sidebar-primary-foreground: 255 255 255; /* #FFFFFF */
+  --sidebar-accent: 16 185 129; /* #10B981 - Emerald */
+  --sidebar-accent-foreground: 255 255 255; /* #FFFFFF */
+  --sidebar-border: 229 231 235; /* #E5E7EB */
+  --sidebar-ring: 34 197 94; /* #22C55E */
 }
 
 @theme inline {

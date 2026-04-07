@@ -29,13 +29,13 @@ export function DashboardSidebar({ userRole = 'operator' }: DashboardSidebarProp
   return (
     <aside
       className={cn(
-        'bg-sidebar border-r border-sidebar-border transition-all duration-300 h-screen sticky top-16 overflow-y-auto',
+        'bg-white border-r-2 border-green-100 transition-all duration-300 h-screen sticky top-16 overflow-y-auto shadow-sm',
         isCollapsed ? 'w-20' : 'w-64'
       )}
     >
       <div className="p-4 flex flex-col h-full">
         {/* Menu Items */}
-        <nav className="space-y-2 flex-1">
+        <nav className="space-y-1 flex-1">
           {filteredItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href
@@ -45,12 +45,15 @@ export function DashboardSidebar({ userRole = 'operator' }: DashboardSidebarProp
                 <Button
                   variant={isActive ? 'default' : 'ghost'}
                   className={cn(
-                    'w-full justify-start gap-3 transition-colors',
-                    isActive && 'bg-sidebar-primary text-sidebar-primary-foreground'
+                    'w-full justify-start gap-3 transition-all rounded-lg',
+                    isActive 
+                      ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-md hover:shadow-lg' 
+                      : 'text-gray-700 hover:bg-green-50 hover:text-green-700'
                   )}
                 >
                   <Icon className="h-5 w-5 flex-shrink-0" />
-                  {!isCollapsed && <span>{item.label}</span>}
+                  {!isCollapsed && <span className="font-medium">{item.label}</span>}
+                  {isActive && !isCollapsed && <ChevronRight className="h-4 w-4 ml-auto" />}
                 </Button>
               </Link>
             )
@@ -62,9 +65,9 @@ export function DashboardSidebar({ userRole = 'operator' }: DashboardSidebarProp
           variant="ghost"
           size="sm"
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="w-full justify-center"
+          className="w-full justify-center text-gray-600 hover:text-green-600 hover:bg-green-50"
         >
-          <ChevronRight className={cn('h-4 w-4 transition-transform', isCollapsed && 'rotate-180')} />
+          <ChevronRight className={cn('h-5 w-5 transition-transform', isCollapsed && 'rotate-180')} />
         </Button>
       </div>
     </aside>
