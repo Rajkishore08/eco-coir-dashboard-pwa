@@ -2,6 +2,20 @@
   "name": "my-project",
   "version": "0.1.0",
   "private": true,
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).",
+  "homepage": "https://github.com/Rajkishore08/eco-coir-dashboard-pwa#readme",
+  "bugs": {
+    "url": "https://github.com/Rajkishore08/eco-coir-dashboard-pwa/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rajkishore08/eco-coir-dashboard-pwa.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "directories": {
+    "lib": "lib"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
