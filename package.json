@@ -22,7 +22,11 @@
     "start": "next start",
     "lint": "eslint .",
     "generate-data": "tsx scripts/generate-json-data.ts",
+    "generate-perfect-data": "tsx scripts/generate-perfect-iot-data.ts",
     "add-remaining-days": "tsx scripts/add-remaining-days.ts",
+    "add-current-week": "tsx scripts/add-current-week-data.ts",
+    "add-missing-april16": "cd iot-device-deployment && python3 add-missing-data-april16.py",
+    "iot-simulator": "tsx scripts/iot-device-simulator.ts",
     "clear-firebase": "tsx scripts/clear-firebase.ts"
   },
   "dependencies": {

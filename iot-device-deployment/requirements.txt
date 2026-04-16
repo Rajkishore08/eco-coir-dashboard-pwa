@@ -1,0 +1,5 @@
+# Python IoT Device Simulator Dependencies
+# Install with: pip3 install -r requirements.txt
+
+firebase-admin>=6.5.0
+pytz>=2024.1

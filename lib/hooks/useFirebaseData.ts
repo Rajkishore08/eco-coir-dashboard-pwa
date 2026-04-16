@@ -130,6 +130,7 @@ export async function getSystemLogs(deviceId: string = "device_01", limit: numbe
 
 export function useRealtimeEvents(deviceId: string = "device_01", limit: number = 10) {
   const [events, setEvents] = useState<MachineEvent[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -145,6 +146,9 @@ export function useRealtimeEvents(deviceId: string = "device_01", limit: number 
           }
         });
         
+        // Set total count before filtering
+        setTotalCount(allEvents.length);
+        
         const sorted = allEvents
           .sort((a, b) => b.event_time - a.event_time)
           .slice(0, limit);
@@ -157,7 +161,7 @@ export function useRealtimeEvents(deviceId: string = "device_01", limit: number 
     return () => unsubscribe();
   }, [deviceId, limit]);
 
-  return { events, loading };
+  return { events, totalCount, loading };
 }
 
 export function useRealtimeWaterUsage(deviceId: string = "device_01") {

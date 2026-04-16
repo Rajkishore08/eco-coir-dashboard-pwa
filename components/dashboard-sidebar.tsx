@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Activity, Settings, BarChart3, AlertTriangle, Zap, Droplets, ChevronRight } from 'lucide-react'
+import { Activity, Settings, BarChart3, AlertTriangle, Zap, Droplets, ChevronRight, Calendar } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 
@@ -18,6 +18,7 @@ export function DashboardSidebar({ userRole = 'operator' }: DashboardSidebarProp
   const menuItems = [
     { icon: Activity, label: 'Overview', href: '/dashboard', roles: ['admin', 'operator'] },
     { icon: BarChart3, label: 'Analytics', href: '/dashboard/analytics', roles: ['admin', 'operator'] },
+    { icon: Calendar, label: 'Daily Analysis', href: '/dashboard/daily-analysis', roles: ['admin', 'operator'] },
     { icon: Zap, label: 'Power Management', href: '/dashboard/power', roles: ['admin', 'operator'] },
     { icon: Droplets, label: 'Water Usage', href: '/dashboard/water', roles: ['admin', 'operator'] },
     { icon: AlertTriangle, label: 'Alerts', href: '/dashboard/alerts', roles: ['admin', 'operator'] },

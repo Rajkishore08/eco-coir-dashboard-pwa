@@ -10,7 +10,20 @@ next.user-config.*
 # Environment variables
 .env*.local
 
+# Firebase credentials (NEVER commit these!)
+firebase-service-account.json
+*-firebase-adminsdk-*.json
+
 # Common ignores
 node_modules
 .next/
 .DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+*.log
