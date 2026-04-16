@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { DashboardNavbar } from '@/components/dashboard-navbar'
 import { DashboardSidebar } from '@/components/dashboard-sidebar'
+import { useAuth } from '@/lib/contexts/AuthContext'
 
 export default function DashboardLayout({
   children,
@@ -11,28 +12,28 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   const router = useRouter()
+  const { user, loading, logout } = useAuth()
   const [userRole, setUserRole] = useState<string>('operator')
-  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Check if user is logged in
-    const user = localStorage.getItem('user')
-    if (!user) {
+    // Redirect if not authenticated and finished loading
+    if (!loading && !user) {
       router.push('/')
       return
     }
 
-    const userData = JSON.parse(user)
-    setUserRole(userData.role)
-    setIsLoading(false)
-  }, [router])
+    if (user) {
+      const email = user.email || ''
+      setUserRole(email.includes('admin') ? 'admin' : 'operator')
+    }
+  }, [user, loading, router])
 
-  const handleLogout = () => {
-    localStorage.removeItem('user')
+  const handleLogout = async () => {
+    await logout()
     router.push('/')
   }
 
-  if (isLoading) {
+  if (loading || !user) {
     return (
       <div className="flex items-center justify-center h-screen bg-gradient-to-br from-green-50 to-cyan-50">
         <div className="text-center">
@@ -45,7 +46,7 @@ export default function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-cyan-50">
-      <DashboardNavbar userRole={userRole} onLogout={handleLogout} />
+      <DashboardNavbar userRole={userRole} displayName={user.displayName || user.email || 'User'} onLogout={handleLogout} />
       <div className="flex">
         {/* Sidebar - Hidden on mobile, visible on lg screens */}
         <div className="hidden lg:block">

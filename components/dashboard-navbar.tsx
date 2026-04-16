@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Bell, User, LogOut } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
@@ -5,10 +6,11 @@ import { MobileNav } from '@/components/mobile-nav'
 
 interface DashboardNavbarProps {
   userRole?: string
+  displayName?: string
   onLogout?: () => void
 }
 
-export function DashboardNavbar({ userRole = 'operator', onLogout }: DashboardNavbarProps) {
+export function DashboardNavbar({ userRole = 'operator', displayName = 'User Account', onLogout }: DashboardNavbarProps) {
   return (
     <nav className="bg-white border-b-2 border-green-100 sticky top-0 z-50 shadow-sm animate-slide-in-down">
       <div className="flex items-center justify-between h-14 sm:h-16 px-3 sm:px-4 md:px-6">
@@ -17,8 +19,8 @@ export function DashboardNavbar({ userRole = 'operator', onLogout }: DashboardNa
 
         {/* Logo/Title */}
         <div className="flex items-center gap-2 sm:gap-3 flex-1 md:flex-none">
-          <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-md hover:shadow-lg transition-shadow flex-shrink-0">
-            <span className="text-white font-bold text-sm sm:text-lg">EC</span>
+          <div className="relative w-9 sm:w-10 h-9 sm:h-10 flex-shrink-0">
+            <Image src="/logo.jpg" alt="EcoCoir Logo" fill className="object-contain" priority />
           </div>
           <div className="min-w-0">
             <h1 className="text-sm sm:text-lg font-bold text-green-700 truncate">EcoCoir</h1>
@@ -42,8 +44,8 @@ export function DashboardNavbar({ userRole = 'operator', onLogout }: DashboardNa
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
-              <div className="px-2 py-1.5 bg-green-50 rounded-t-md">
-                <p className="text-sm font-bold text-green-700">User Account</p>
+              <div className="px-2 py-1.5 bg-green-50 rounded-t-md overflow-hidden">
+                <p className="text-sm font-bold text-green-700 truncate">{displayName}</p>
                 <p className="text-xs text-green-600 capitalize font-medium">{userRole} Role</p>
               </div>
               <DropdownMenuSeparator />

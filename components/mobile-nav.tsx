@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { Menu, X, Activity, BarChart3, Zap, Droplets, AlertTriangle, Settings } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'
 
 interface MobileNavProps {
   userRole?: string
@@ -38,7 +38,7 @@ export function MobileNav({ userRole = 'operator' }: MobileNavProps) {
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="p-4 border-b border-border flex items-center justify-between">
-            <h2 className="text-lg font-bold text-foreground">EcoCoir</h2>
+            <SheetTitle className="text-lg font-bold text-foreground">EcoCoir</SheetTitle>
             <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
               <X className="h-5 w-5" />
             </Button>

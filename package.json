@@ -82,6 +82,7 @@
     "@types/node": "^22",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
+    "babel-plugin-react-compiler": "19.0.0-beta-e552027-20250112",
     "postcss": "^8.5",
     "tailwindcss": "^4.2.0",
     "tsx": "^4.21.0",

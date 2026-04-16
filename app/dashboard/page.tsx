@@ -1,22 +1,16 @@
 'use client'
 
-import { Zap, Droplets, Gauge, Leaf, Activity, Cloud } from 'lucide-react'
+import { useAuth } from '@/lib/contexts/AuthContext'
+import { useLiveSimulation } from '@/lib/hooks/useLiveSimulation'
+import { useMetricsDB } from '@/lib/hooks/useMetricsDB'
+import { Zap, Droplets, Gauge, Leaf, Activity } from 'lucide-react'
 import { KPICard } from '@/components/kpi-card'
 import { GaugeWidget } from '@/components/gauge-widget'
 import { Card } from '@/components/ui/card'
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-// Mock data
-const powerConsumptionData = [
-  { time: '00:00', consumption: 2400 },
-  { time: '04:00', consumption: 2210 },
-  { time: '08:00', consumption: 2290 },
-  { time: '12:00', consumption: 2000 },
-  { time: '16:00', consumption: 2181 },
-  { time: '20:00', consumption: 2500 },
-  { time: '23:59', consumption: 2100 },
-]
+// Fetch dynamic data from React Database Hook natively
 
 const machineLoadData = [
   { time: '00:00', load: 65 },
@@ -46,83 +40,100 @@ const efficiencyData = [
 ]
 
 export default function DashboardOverview() {
+  const { user } = useAuth()
+  const liveMetrics = useLiveSimulation()
+  const { powerSeries, isLoading } = useMetricsDB()
+  
   return (
     <div className="space-y-6 sm:space-y-8 pb-8">
-      {/* Page Header */}
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-1 sm:mb-2">Factory Overview</h1>
-        <p className="text-base sm:text-lg text-muted-foreground">Real-time monitoring of coir processing operations</p>
+      {/* Dynamic Page Header */}
+      <div className="animate-fade-in-up bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-green-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-green-800 mb-2 tracking-tight">
+            Welcome back, {user?.displayName ? user.displayName.split(' ')[0] : 'Operator'}!
+          </h1>
+          <p className="text-base sm:text-lg text-green-600 font-medium">Here's your EcoCoir smart factory overview for today.</p>
+        </div>
+        <div className="flex bg-green-50 p-3 rounded-lg border border-green-100 items-center justify-center">
+          <Leaf className="text-green-500 w-8 h-8 mr-3 animate-pulse" />
+          <div>
+            <p className="text-xs text-green-700 font-bold uppercase">System Status</p>
+            <p className="text-lg text-green-800 font-bold">Optimal running</p>
+          </div>
+        </div>
       </div>
 
-      {/* KPI Cards Grid - Fully Responsive */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-        <KPICard
-          title="Total Power Consumption"
-          value={15240}
-          unit="kWh"
-          icon={Zap}
-          colorScheme="green"
-          trend={{ value: 12, isPositive: true }}
-          status="normal"
-          delay={0}
-        />
-        <KPICard
-          title="System Efficiency Score"
-          value={87.5}
-          unit="%"
-          icon={Activity}
-          colorScheme="lime"
-          trend={{ value: 5, isPositive: true }}
-          status="normal"
-          delay={1}
-        />
-        <KPICard
-          title="Water Usage Today"
-          value={28500}
-          unit="L"
-          icon={Droplets}
-          colorScheme="cyan"
-          trend={{ value: 8, isPositive: false }}
-          status="normal"
-          delay={2}
-        />
-        <KPICard
-          title="Average Machine Load"
-          value={81.4}
-          unit="%"
-          icon={Gauge}
-          colorScheme="amber"
-          trend={{ value: 3, isPositive: true }}
-          status="normal"
-          delay={3}
-        />
-        <KPICard
-          title="Solar Energy Output"
-          value={8.2}
-          unit="kWh"
-          icon={Cloud}
-          colorScheme="green"
-          trend={{ value: 15, isPositive: true }}
-          status="normal"
-          delay={4}
-        />
-        <KPICard
-          title="Operational Status"
-          value="Active"
-          icon={Leaf}
-          colorScheme="green"
-          status="normal"
-          delay={5}
-        />
+      {/* KPI Cards Grid - Enhanced UX with Visual Hierarchy */}
+      <div className="space-y-4 md:space-y-6">
+        {/* Primary KPIs */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+          <KPICard
+            title="System Efficiency Score"
+            value={liveMetrics.efficiency}
+            unit="%"
+            icon={Activity}
+            colorScheme="lime"
+            trend={{ value: 5, isPositive: true }}
+            status="normal"
+            delay={0}
+          />
+          <KPICard
+            title="Operational Status"
+            value="Active"
+            icon={Leaf}
+            colorScheme="green"
+            status="normal"
+            delay={1}
+          />
+        </div>
+        
+        {/* Secondary Detailed KPIs */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+          <KPICard
+            title="Total Power Consumption"
+            value={liveMetrics.powerConsumption}
+            unit="kWh"
+            icon={Zap}
+            colorScheme="amber"
+            trend={{ value: 12, isPositive: true }}
+            status="normal"
+            delay={2}
+          />
+          <KPICard
+            title="Water Usage Today"
+            value={liveMetrics.waterUsage}
+            unit="L"
+            icon={Droplets}
+            colorScheme="cyan"
+            trend={{ value: 8, isPositive: false }}
+            status="normal"
+            delay={3}
+          />
+          <KPICard
+            title="Average Machine Load"
+            value={liveMetrics.machineLoad}
+            unit="%"
+            icon={Gauge}
+            colorScheme="green"
+            trend={{ value: 3, isPositive: true }}
+            status="normal"
+            delay={4}
+          />
+        </div>
       </div>
 
       {/* Charts Section - Full Responsive */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
         {/* Power Consumption Chart */}
         <Card className="p-3 sm:p-4 md:p-6 shadow-md hover:shadow-lg transition-all duration-300 animate-fade-in-up" style={{ animationDelay: '600ms' }}>
-          <h2 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4">Power Consumption (kWh)</h2>
+          <h2 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4">Power Consumption (W)</h2>
           <ResponsiveContainer width="100%" height={200}>
-            <LineChart data={powerConsumptionData}>
+            {isLoading ? (
+              <div className="w-full h-full flex items-center justify-center bg-gray-50/50 rounded-lg border border-dashed border-gray-200">
+                <span className="text-sm font-medium text-gray-500 animate-pulse">Syncing Database...</span>
+              </div>
+            ) : (
+              <LineChart data={powerSeries}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgb(229 231 235)" />
               <XAxis dataKey="time" stroke="rgb(107 114 128)" style={{ fontSize: '12px' }} />
               <YAxis stroke="rgb(107 114 128)" style={{ fontSize: '12px' }} />
@@ -137,6 +148,7 @@ export default function DashboardOverview() {
                 name="Power (kWh)"
               />
             </LineChart>
+            )}
           </ResponsiveContainer>
         </Card>
 
@@ -199,10 +211,10 @@ export default function DashboardOverview() {
       <div className="animate-fade-in-up" style={{ animationDelay: '1000ms' }}>
         <h2 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4">Real-time Status</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
-          <GaugeWidget title="Machine Load" value={81.4} colorScheme="green" delay={0} />
-          <GaugeWidget title="Power Usage" value={76} colorScheme="cyan" delay={1} />
-          <GaugeWidget title="Water Flow" value={64} colorScheme="lime" delay={2} />
-          <GaugeWidget title="System Temp" value={45} maxValue={100} colorScheme="amber" delay={3} />
+          <GaugeWidget title="Machine Load" value={liveMetrics.machineLoad} colorScheme="green" delay={0} />
+          <GaugeWidget title="Power Usage" value={liveMetrics.powerUsageGauge} colorScheme="cyan" delay={1} />
+          <GaugeWidget title="Water Flow" value={liveMetrics.waterFlowGauge} colorScheme="lime" delay={2} />
+          <GaugeWidget title="System Temp" value={liveMetrics.systemTemp} maxValue={100} colorScheme="amber" delay={3} />
         </div>
       </div>
 
