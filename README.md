@@ -1,35 +1,114 @@
-# eco-coir-dashboard-pwa
+# Eco-Coir Dashboard PWA
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+IoT-based real-time monitoring dashboard for coir processing operations with Firebase integration.
 
-## Built with v0
+## Quick Start
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
+### Step 1: Clear Firebase (if needed)
+```bash
+npm run clear-firebase
+```
+This removes all existing data from Firebase.
 
-[Continue working on v0 →](https://v0.app/chat/projects/prj_zXYuRPzODhK1ldYX3LOSpVhm4UpT)
+### Step 2: Import Initial Data (April 3-6)
 
-## Getting Started
+The `firebase-data.json` file is ready in the project root.
 
-First, run the development server:
+Import to Firebase:
+1. Go to [Firebase Console](https://console.firebase.google.com/project/coir-tech-iot/database/coir-tech-iot-default-rtdb/data)
+2. Click the 3-dot menu → Import JSON
+3. Select `firebase-data.json` (7.4MB)
+4. Click Import
 
+### Step 3: Add Remaining Days (April 7-9)
+```bash
+npm run add-remaining-days
+```
+This adds April 7-9 data (mill down period) directly to Firebase.
+
+### Step 4: Start Development Server
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Step 5: View Dashboard
+http://localhost:3000/dashboard/live
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Data Details
 
-## Learn More
+### Date Range
+- **April 3-6, 2026**: Normal operation (8 AM - 6 PM)
+- **April 7-9, 2026**: Mill down (idle, <0.5 A)
 
-To learn more, take a look at the following resources:
+### Data Format
+Each sensor reading includes:
+```json
+{
+  "sensor_id": "uuid",
+  "device_id": "device_01",
+  "current_value": 28.5,
+  "timestamp": 1775154600,
+  "date": "2026-04-02T18:30:00.000Z",
+  "readable_date": "Apr 3, 2026, 12:00:00 AM"
+}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
+### Collections
+```
+Firebase Realtime Database
+├── DEVICE_INFO       # Device metadata
+├── LIVE_DATA         # Current values
+├── SENSOR_DATA       # Raw readings (15-second intervals)
+├── MACHINE_EVENT     # Status change events
+├── THRESHOLD_CONFIG  # System limits (editable)
+└── SYSTEM_LOGS       # Event logs
+```
 
-<a href="https://v0.app/chat/api/kiro/clone/Rajkishore08/eco-coir-dashboard-pwa" alt="Open in Kiro"><img src="https://pdgvvgmkdvyeydso.public.blob.vercel-storage.com/open%20in%20kiro.svg?sanitize=true" /></a>
+### Status Classification
+- **EFFICIENT**: 25-34 A (normal operation)
+- **OVERLOAD**: ≥35 A (excessive load)
+- **UNDERUSAGE**: 5-10 A (below optimal)
+- **IDLE**: ≤1 A (machine stopped)
+- **MISSING**: null (no data)
+
+## Configuration
+
+### Editable Thresholds (in Firebase)
+```json
+{
+  "overload_limit": 35,
+  "underusage_limit": 10,
+  "idle_threshold": 1,
+  "missing_timeout": 20,
+  "data_interval_seconds": 15
+}
+```
+
+Edit these values in Firebase Console under `THRESHOLD_CONFIG/device_01`.
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run generate-data` - Generate 4-day JSON file (April 3-6)
+- `npm run add-remaining-days` - Add April 7-9 to Firebase
+- `npm run clear-firebase` - Clear all Firebase data
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19
+- Firebase Realtime Database
+- TypeScript
+- Tailwind CSS
+- Recharts
+- Radix UI Components
+
+## Notes
+
+- Data interval: 15 seconds (consistent, no gaps)
+- Water consumption: Not implemented (sensor not installed)
+- Solar energy: Not included in this project
+- Mill operational hours: 8 AM - 6 PM (April 3-6)
+- Mill down: April 7-9 (Tuesday-Thursday)
+- Total data points: ~40,320 across 7 days
