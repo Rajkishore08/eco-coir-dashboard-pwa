@@ -22,6 +22,15 @@ export default function DashboardOverview() {
   const { data: liveData, loading } = useLiveData()
   const { events, totalCount } = useRealtimeEvents("device_01", 500)
 
+  // Normalize status names (map old names to correct ones)
+  const normalizeStatus = (status: string): string => {
+    const statusMap: Record<string, string> = {
+      'NORMAL': 'EFFICIENT',      // Old -> New
+      'UNDERLOAD': 'UNDERUSAGE',  // Old -> New
+    }
+    return statusMap[status] || status
+  }
+
   // Calculate efficiency distribution
   const efficiencyData = useMemo(() => {
     if (!events || events.length === 0) return []
@@ -29,7 +38,7 @@ export default function DashboardOverview() {
     const statusMap = new Map<string, number>()
     
     events.forEach((event) => {
-      const status = event.status_type
+      const status = normalizeStatus(event.status_type)
       statusMap.set(status, (statusMap.get(status) || 0) + 1)
     })
     
@@ -70,7 +79,7 @@ export default function DashboardOverview() {
   // Calculate efficiency percentage
   const efficiencyPercentage = useMemo(() => {
     if (!events || events.length === 0) return 0
-    const efficientCount = events.filter(e => e.status_type === "EFFICIENT").length
+    const efficientCount = events.filter(e => normalizeStatus(e.status_type) === "EFFICIENT").length
     return Math.round((efficientCount / events.length) * 100)
   }, [events])
   

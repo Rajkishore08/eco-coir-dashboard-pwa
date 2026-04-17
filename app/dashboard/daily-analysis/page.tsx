@@ -36,6 +36,15 @@ export default function DailyAnalysisPage() {
   const [viewMode, setViewMode] = useState<'all' | 'single'>('all')
   const [selectedDate, setSelectedDate] = useState<string>('')
 
+  // Normalize status names (map old names to correct ones)
+  const normalizeStatus = (status: string): string => {
+    const statusMap: Record<string, string> = {
+      'NORMAL': 'EFFICIENT',      // Old -> New
+      'UNDERLOAD': 'UNDERUSAGE',  // Old -> New
+    }
+    return statusMap[status] || status
+  }
+
   // Calculate day-wise analysis
   const dailyAnalysis = useMemo((): DayAnalysis[] => {
     if (!events || events.length === 0) return []
@@ -82,8 +91,8 @@ export default function DailyAnalysisPage() {
       data.totalEvents += 1
       data.dataPoints += 1
       
-      // Add duration to respective status
-      switch (event.status_type) {
+      // Add duration to respective status (normalize old status names)
+      switch (normalizeStatus(event.status_type)) {
         case 'EFFICIENT':
           data.efficientTime += event.duration
           break
@@ -153,7 +162,7 @@ export default function DailyAnalysisPage() {
     
     // First pass: identify hours with MISSING events
     dayEvents.forEach(event => {
-      if (event.status_type === 'MISSING') {
+      if (normalizeStatus(event.status_type) === 'MISSING') {
         const startTime = event.event_time * 1000
         const endTime = startTime + (event.duration * 1000)
         
@@ -179,8 +188,10 @@ export default function DailyAnalysisPage() {
     
     // Second pass: calculate hourly data, excluding hours with MISSING
     dayEvents.forEach(event => {
+      const normalizedStatus = normalizeStatus(event.status_type)
+      
       // Only include non-MISSING events in hourly current pattern and averages
-      if (event.status_type !== 'MISSING') {
+      if (normalizedStatus !== 'MISSING') {
         const hour = new Date(event.event_time * 1000).getHours()
         
         // Skip this hour if it has any MISSING data
@@ -198,8 +209,8 @@ export default function DailyAnalysisPage() {
       }
       
       // Include all events in status breakdown (including MISSING)
-      if (event.status_type in statusBreakdown) {
-        statusBreakdown[event.status_type as keyof typeof statusBreakdown] += event.duration
+      if (normalizedStatus in statusBreakdown) {
+        statusBreakdown[normalizedStatus as keyof typeof statusBreakdown] += event.duration
       }
     })
     

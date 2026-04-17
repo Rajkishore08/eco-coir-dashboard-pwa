@@ -79,6 +79,15 @@ def log_idle_event(timestamp_seconds):
     }
     
     event_ref.set(event_data)
+    
+    # Also update LIVE_DATA for real-time dashboard display
+    live_ref = db.reference(f"LIVE_DATA/{DEVICE_ID}")
+    live_data = {
+        "current": 0.0,
+        "status": "IDLE",
+        "timestamp": timestamp_seconds
+    }
+    live_ref.set(live_data)
 
 def log_idle_system_log(timestamp_seconds, message):
     """Log idle system log to Firebase"""

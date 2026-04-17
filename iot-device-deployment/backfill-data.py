@@ -92,11 +92,12 @@ def determine_status(current):
     elif current <= THRESHOLDS["idle_threshold"]:
         return "IDLE"
     elif current < THRESHOLDS["underusage_limit"]:
-        return "UNDERLOAD"
+        return "UNDERUSAGE"
     elif THRESHOLDS["efficient_min"] <= current <= THRESHOLDS["efficient_max"]:
         return "EFFICIENT"
     else:
-        return "NORMAL"
+        # 10-25A range - consider it efficient operation
+        return "EFFICIENT"
 
 def log_event(timestamp_seconds, current, status):
     """Log machine event to Firebase"""
@@ -123,7 +124,7 @@ def log_system_log(timestamp_seconds, status, message):
     log_id = str(uuid.uuid4())
     log_ref = db.reference(f"SYSTEM_LOGS/{log_id}")
     
-    log_type = "ERROR" if status in ["OVERLOAD", "MISSING"] else "ALERT" if status in ["UNDERLOAD", "IDLE"] else "INFO"
+    log_type = "ERROR" if status in ["OVERLOAD", "MISSING"] else "ALERT" if status in ["UNDERUSAGE", "IDLE"] else "INFO"
     
     log_time_dt = datetime.fromtimestamp(timestamp_seconds, tz=IST)
     
