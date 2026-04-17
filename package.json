@@ -26,6 +26,9 @@
     "add-remaining-days": "tsx scripts/add-remaining-days.ts",
     "add-current-week": "tsx scripts/add-current-week-data.ts",
     "add-missing-april16": "cd iot-device-deployment && python3 add-missing-data-april16.py",
+    "backfill-data": "source venv/bin/activate && cd iot-device-deployment && python3 backfill-data.py",
+    "monitor-operating": "source venv/bin/activate && cd iot-device-deployment && python3 operating-hours-monitor.py",
+    "monitor-idle": "source venv/bin/activate && cd iot-device-deployment && python3 idle-hours-monitor.py",
     "iot-simulator": "tsx scripts/iot-device-simulator.ts",
     "clear-firebase": "tsx scripts/clear-firebase.ts"
   },

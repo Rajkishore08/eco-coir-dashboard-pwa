@@ -9,6 +9,7 @@ const nextConfig = {
   },
   reactCompiler: true,
   compress: true,
+  devIndicators: false,
 }
 
 export default nextConfig
