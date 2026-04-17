@@ -91,7 +91,7 @@ export default function DashboardOverview() {
           <h1 className="text-3xl sm:text-4xl font-extrabold text-green-800 mb-2 tracking-tight">
             Welcome back, {user?.displayName ? user.displayName.split(' ')[0] : 'Operator'}!
           </h1>
-          <p className="text-base sm:text-lg text-green-600 font-medium">Here's your EcoCoir smart factory overview for today.</p>
+          <p className="text-base sm:text-lg text-green-600 font-medium">Here's the EcoCoir smart factory overview for today.</p>
         </div>
         <div className="flex bg-green-50 p-3 rounded-lg border border-green-100 items-center justify-center">
           <Leaf className="text-green-500 w-8 h-8 mr-3 animate-pulse" />
