@@ -228,7 +228,7 @@ All interactive elements follow 44x44px minimum (accessibility standard):
 </TabsList>
 ```
 
----
+---best vakue
 
 ## Responsive Components
 
